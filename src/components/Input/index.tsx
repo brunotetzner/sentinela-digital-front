@@ -1,6 +1,7 @@
 import { useId } from 'react'
 import type { InputHTMLAttributes } from 'react'
-import { Field, Label, Wrapper } from './styles'
+import { FieldLabel, FieldWrapper } from '../../styles/field'
+import { Field } from './styles'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   /** Rótulo visível do campo, ligado ao input por `htmlFor` */
@@ -12,10 +13,10 @@ function Input({ label, id, ...rest }: InputProps) {
   const inputId = id ?? generatedId
 
   return (
-    <Wrapper>
-      <Label htmlFor={inputId}>{label}</Label>
+    <FieldWrapper>
+      <FieldLabel htmlFor={inputId}>{label}</FieldLabel>
       <Field id={inputId} {...rest} />
-    </Wrapper>
+    </FieldWrapper>
   )
 }
 

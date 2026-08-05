@@ -68,7 +68,8 @@ function Sidebar() {
         {/* Navegar fecha a gaveta; sem isso ela cobre a página recém-aberta no celular */}
         <Links>
           <li>
-            <NavItem to={paths.denuncias} onClick={close}>
+            {/* `end`: sem isso a lista fica ativa também em /denuncias/criar e /denuncias/:id */}
+            <NavItem to={paths.denuncias} end onClick={close}>
               Denúncias
             </NavItem>
           </li>

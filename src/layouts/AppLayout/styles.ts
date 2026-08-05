@@ -18,3 +18,15 @@ export const Container = styled.div`
   max-width: 960px;
   margin: 0 auto;
 `
+
+/** Cabeçalho padrão das telas internas: título à esquerda, apoio à direita, régua embaixo */
+export const PageHeader = styled.header`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing(2)};
+  padding-bottom: ${({ theme }) => theme.spacing(4)};
+  margin-bottom: ${({ theme }) => theme.spacing(6)};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+`

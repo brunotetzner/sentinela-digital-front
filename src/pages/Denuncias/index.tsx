@@ -1,20 +1,21 @@
 import DenunciaCard from '../../components/DenunciaCard'
 import AppLayout from '../../layouts/AppLayout'
+import { PageHeader } from '../../layouts/AppLayout/styles'
+import { denunciasMock } from '../../mocks/denuncias'
 import { Subtitle, Title } from '../../styles/typography'
-import { denunciasMock } from './mock'
-import { Header, List } from './styles'
+import { List } from './styles'
 
 function Denuncias() {
   const denuncias = denunciasMock
 
   return (
     <AppLayout>
-      <Header>
+      <PageHeader>
         <Title>Denúncias</Title>
         <Subtitle>
           {denuncias.length} {denuncias.length === 1 ? 'registro' : 'registros'}
         </Subtitle>
-      </Header>
+      </PageHeader>
 
       <List>
         {denuncias.map((denuncia) => (
