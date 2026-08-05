@@ -8,20 +8,4 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.text};
     font-family: system-ui, sans-serif;
   }
-
-  #root {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  button, input, textarea, select {
-    font: inherit;
-    color: inherit;
-  }
 `
