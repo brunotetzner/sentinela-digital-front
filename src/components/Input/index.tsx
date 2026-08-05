@@ -1,17 +1,20 @@
+import { useId } from 'react'
 import type { InputHTMLAttributes } from 'react'
-import { VisuallyHidden } from '../../styles/typography'
-import { Field, Wrapper } from './styles'
+import { Field, Label, Wrapper } from './styles'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  /** Rótulo do campo. Fica oculto visualmente, mas é lido por leitores de tela. */
+  /** Rótulo visível do campo, ligado ao input por `htmlFor` */
   label: string
 }
 
-function Input({ label, ...rest }: InputProps) {
+function Input({ label, id, ...rest }: InputProps) {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
+
   return (
     <Wrapper>
-      <VisuallyHidden>{label}</VisuallyHidden>
-      <Field {...rest} />
+      <Label htmlFor={inputId}>{label}</Label>
+      <Field id={inputId} {...rest} />
     </Wrapper>
   )
 }

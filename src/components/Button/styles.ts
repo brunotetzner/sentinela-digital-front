@@ -2,14 +2,14 @@ import styled from 'styled-components'
 
 export const StyledButton = styled.button`
   width: 100%;
-  min-height: 56px;
+  min-height: 48px;
   padding: 0 ${({ theme }) => theme.spacing(6)};
   background: ${({ theme }) => theme.colors.primary};
   border: none;
-  border-radius: ${({ theme }) => theme.radii.md};
-  color: ${({ theme }) => theme.colors.text};
-  font-size: ${({ theme }) => theme.fonts.sizes.xl};
-  font-weight: ${({ theme }) => theme.fonts.weights.bold};
+  border-radius: ${({ theme }) => theme.radii.sm};
+  color: ${({ theme }) => theme.colors.textOnPrimary};
+  font-size: ${({ theme }) => theme.fonts.sizes.md};
+  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   cursor: pointer;
   transition: background 0.2s ease;
 
@@ -18,7 +18,7 @@ export const StyledButton = styled.button`
   }
 
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.surface};
+    outline: 3px solid ${({ theme }) => theme.colors.accent};
     outline-offset: 2px;
   }
 

@@ -1,41 +1,45 @@
 /**
  * Guia de estilo do Sentinela Digital.
  *
- * Tudo que for cor, fonte, raio ou espaçamento sai daqui — os componentes
- * nunca escrevem valores literais. Consumir sempre via `({ theme }) => ...`
- * dentro do styled-components.
+ * Direção institucional cívica: azul-marinho e branco, alto contraste. A tela precisa
+ * comprar a confiança de quem chega abalado para denunciar.
+ *
+ * Tudo que for cor, fonte, raio ou espaçamento sai daqui — os componentes nunca escrevem
+ * valores literais. Consumir sempre via `({ theme }) => ...` dentro do styled-components.
  */
 export const theme = {
   colors: {
-    /** Fundo da aplicação — marrom rosado dessaturado */
-    background: '#5C4547',
-    /** Cartões e blocos claros sobre o fundo */
-    surface: '#F8EAE9',
-    /** Campos de formulário dentro do cartão */
-    surfaceAlt: '#FDF7F6',
-    /** Ação principal (botões) */
-    primary: '#3B1B1F',
-    primaryHover: '#4E272C',
-    /** Traços e bordas finas */
-    border: '#7A5B5D',
-    /** Texto sobre o fundo escuro */
-    text: '#F5EAE9',
-    /** Texto sobre superfícies claras */
-    textOnSurface: '#3B1B1F',
+    /** Fundo da aplicação */
+    background: '#F4F7FA',
+    /** Cartões, campos e superfícies claras */
+    surface: '#FFFFFF',
+    /** Painel de marca e ação principal */
+    primary: '#0F2A47',
+    primaryHover: '#173D63',
+    /** Links e anel de foco */
+    accent: '#1B6FB5',
+    /** Marca sobre o fundo escuro — claro o bastante para contrastar com o navy */
+    accentSoft: '#4FA3E3',
+    /** Bordas de campo */
+    border: '#C7D4E0',
+    /** Texto sobre superfície clara — 15:1 sobre branco */
+    text: '#10202E',
+    /** Texto sobre o painel navy — 13:1 sobre primary */
+    textOnPrimary: '#EAF1F8',
     /** Texto de apoio, placeholders */
-    textMuted: '#9B8082',
+    textMuted: '#5B7288',
     /** Erros de validação */
     danger: '#B3261E',
   },
   fonts: {
-    family: "'Quicksand', system-ui, -apple-system, sans-serif",
+    family: "'Inter', system-ui, -apple-system, sans-serif",
     sizes: {
-      xs: '0.75rem', // 12px — legendas, links secundários
-      sm: '0.875rem', // 14px — placeholders, textos de apoio
-      md: '1rem', // 16px — corpo
+      xs: '0.75rem', // 12px — legendas
+      sm: '0.875rem', // 14px — rótulos, textos de apoio
+      md: '1rem', // 16px — corpo e campos (abaixo disso o iOS dá zoom)
       lg: '1.125rem', // 18px — subtítulos
-      xl: '1.5rem', // 24px — rótulo de botão principal
-      xxl: '2rem', // 32px — título de tela
+      xl: '1.5rem', // 24px — título de tela
+      xxl: '1.75rem', // 28px — chamada do painel de marca
     },
     weights: {
       regular: 400,
