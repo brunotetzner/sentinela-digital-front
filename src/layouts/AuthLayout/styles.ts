@@ -1,4 +1,10 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+
+/** De que lado da tela o formulário fica no desktop */
+export type FormSide = 'left' | 'right'
+
+type SideProps = { $formSide: FormSide }
 
 export const Page = styled.div`
   min-height: 100%;
@@ -11,7 +17,8 @@ export const Page = styled.div`
   }
 `
 
-export const BrandPanel = styled.aside`
+export const BrandPanel = styled.aside<SideProps>`
+  order: ${({ $formSide }) => ($formSide === 'left' ? 2 : 1)};
   background: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.textOnPrimary};
   padding: ${({ theme }) => theme.spacing(12)} ${({ theme }) => theme.spacing(10)};
@@ -19,8 +26,15 @@ export const BrandPanel = styled.aside`
   flex-direction: column;
   justify-content: space-between;
   gap: ${({ theme }) => theme.spacing(10)};
+  /* O conteúdo encosta na borda externa da tela, do lado em que o painel está */
+  align-items: ${({ $formSide }) => ($formSide === 'left' ? 'flex-end' : 'stretch')};
+  text-align: ${({ $formSide }) => ($formSide === 'left' ? 'right' : 'left')};
 
   @media (max-width: 768px) {
+    /* Em coluna única a marca vem sempre primeiro, dos dois lados do layout */
+    order: 1;
+    align-items: stretch;
+    text-align: left;
     padding: ${({ theme }) => theme.spacing(5)} ${({ theme }) => theme.spacing(5)};
     gap: ${({ theme }) => theme.spacing(3)};
   }
@@ -103,14 +117,53 @@ export const Tag = styled.li`
   border-radius: ${({ theme }) => theme.radii.pill};
 `
 
-export const FormArea = styled.main`
+export const FormArea = styled.main<SideProps>`
+  order: ${({ $formSide }) => ($formSide === 'left' ? 1 : 2)};
   display: flex;
   align-items: center;
   justify-content: center;
   padding: ${({ theme }) => theme.spacing(10)} ${({ theme }) => theme.spacing(6)};
+
+  @media (max-width: 768px) {
+    order: 2;
+  }
 `
 
 export const FormSlot = styled.div`
   width: 100%;
   max-width: 360px;
+`
+
+/* --- Peças compartilhadas pelos formulários de autenticação --- */
+
+export const FormHeader = styled.header`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing(1)};
+  margin-bottom: ${({ theme }) => theme.spacing(6)};
+`
+
+export const FormFields = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing(4)};
+`
+
+export const FormFooter = styled.p`
+  margin-top: ${({ theme }) => theme.spacing(5)};
+  text-align: center;
+  font-size: ${({ theme }) => theme.fonts.sizes.sm};
+  color: ${({ theme }) => theme.colors.textMuted};
+`
+
+export const FormFooterLink = styled(Link)`
+  color: ${({ theme }) => theme.colors.accent};
+  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
+  text-decoration: underline;
+
+  &:focus-visible {
+    outline: 3px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 2px;
+    border-radius: ${({ theme }) => theme.radii.sm};
+  }
 `
