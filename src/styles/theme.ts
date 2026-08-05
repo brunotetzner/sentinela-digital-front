@@ -30,6 +30,13 @@ export const theme = {
     textMuted: '#5B7288',
     /** Erros de validação */
     danger: '#B3261E',
+    /** Situação de uma denúncia — fundo claro com texto escuro, todos acima de 6:1 */
+    status: {
+      recebida: { background: '#E3EFF9', text: '#155189' },
+      emAnalise: { background: '#FDF0D5', text: '#7A4E00' },
+      resolvida: { background: '#DCF2E8', text: '#0F5C41' },
+      arquivada: { background: '#E9EEF3', text: '#4A5C6B' },
+    },
   },
   fonts: {
     family: "'Inter', system-ui, -apple-system, sans-serif",
