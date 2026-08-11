@@ -1,8 +1,10 @@
 import type { FormEvent } from 'react'
+import { useLocation } from 'react-router-dom'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import AuthLayout from '../../layouts/AuthLayout'
 import {
+  FormAlert,
   FormFields,
   FormFooter,
   FormFooterLink,
@@ -11,7 +13,13 @@ import {
 import { paths } from '../../routes/paths'
 import { Subtitle, Title } from '../../styles/typography'
 
+/** Recado deixado por outra tela ao redirecionar para cá — hoje só o cadastro usa. */
+type EstadoDaNavegacao = { aviso?: string } | null
+
 function Login() {
+  const { state } = useLocation()
+  const aviso = (state as EstadoDaNavegacao)?.aviso
+
   // Layout apenas — a autenticação ainda não está integrada.
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -26,6 +34,12 @@ function Login() {
         <Title>Entrar</Title>
         <Subtitle>Acesse sua conta para denunciar e acompanhar.</Subtitle>
       </FormHeader>
+
+      {aviso && (
+        <FormAlert $tipo="sucesso" role="status">
+          {aviso}
+        </FormAlert>
+      )}
 
       <FormFields onSubmit={handleSubmit}>
         <Input

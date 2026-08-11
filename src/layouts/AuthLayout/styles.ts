@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 /** De que lado da tela o formulário fica no desktop */
 export type FormSide = 'left' | 'right'
@@ -147,6 +147,33 @@ export const FormFields = styled.form`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(4)};
+`
+
+/**
+ * Recado sobre o formulário inteiro: falha que não pertence a nenhum campo, ou confirmação
+ * vinda de outra tela. Fica acima dos campos para ser lido antes de recomeçar o
+ * preenchimento.
+ */
+export const FormAlert = styled.p<{ $tipo: 'erro' | 'sucesso' }>`
+  margin-bottom: ${({ theme }) => theme.spacing(4)};
+  padding: ${({ theme }) => theme.spacing(3)};
+  border-radius: ${({ theme }) => theme.radii.sm};
+  border: 1.5px solid;
+  font-size: ${({ theme }) => theme.fonts.sizes.sm};
+  line-height: 1.5;
+
+  ${({ theme, $tipo }) =>
+    $tipo === 'erro'
+      ? css`
+          border-color: ${theme.colors.danger};
+          background: ${theme.colors.danger}0F;
+          color: ${theme.colors.danger};
+        `
+      : css`
+          border-color: ${theme.colors.status.resolvida.text};
+          background: ${theme.colors.status.resolvida.background};
+          color: ${theme.colors.status.resolvida.text};
+        `}
 `
 
 export const FormFooter = styled.p`
