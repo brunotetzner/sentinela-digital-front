@@ -18,3 +18,16 @@ export const Form = styled.form`
 export const Actions = styled.div`
   margin-top: ${({ theme }) => theme.spacing(2)};
 `
+
+/** Falha que não pertence a nenhum campo, acima do formulário */
+export const FormAlert = styled.p`
+  max-width: 560px;
+  margin-bottom: ${({ theme }) => theme.spacing(4)};
+  padding: ${({ theme }) => theme.spacing(3)};
+  border: 1.5px solid ${({ theme }) => theme.colors.danger};
+  border-radius: ${({ theme }) => theme.radii.sm};
+  background: ${({ theme }) => theme.colors.danger}0F;
+  color: ${({ theme }) => theme.colors.danger};
+  font-size: ${({ theme }) => theme.fonts.sizes.sm};
+  line-height: 1.5;
+`

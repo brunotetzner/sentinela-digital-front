@@ -170,9 +170,9 @@ export const FormAlert = styled.p<{ $tipo: 'erro' | 'sucesso' }>`
           color: ${theme.colors.danger};
         `
       : css`
-          border-color: ${theme.colors.status.resolvida.text};
-          background: ${theme.colors.status.resolvida.background};
-          color: ${theme.colors.status.resolvida.text};
+          border-color: ${theme.colors.success};
+          background: ${theme.colors.successSoft};
+          color: ${theme.colors.success};
         `}
 `
 

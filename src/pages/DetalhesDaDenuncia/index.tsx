@@ -1,10 +1,13 @@
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import StatusBadge from '../../components/StatusBadge'
+import { useCatalogos } from '../../hooks/useCatalogos'
 import AppLayout from '../../layouts/AppLayout'
 import { PageHeader } from '../../layouts/AppLayout/styles'
-import { denunciasMock } from '../../mocks/denuncias'
 import { paths } from '../../routes/paths'
 import { Subtitle, Title } from '../../styles/typography'
+import type { Denuncia } from '../../types/denuncia'
+import { formatarData } from '../../utils/data'
+import { linkSeguro } from '../../utils/link'
 import {
   BackLink,
   Card,
@@ -19,9 +22,15 @@ import {
   TitleGroup,
 } from './styles'
 
+/** A denúncia chega pelo `state` do card, porque a API não tem `GET /denuncia/:id`. */
+type EstadoDaNavegacao = { denuncia?: Denuncia } | null
+
 function DetalhesDaDenuncia() {
   const { id } = useParams()
-  const denuncia = denunciasMock.find((item) => item.id === id)
+  const { state } = useLocation()
+  const { nomeDaCategoria, nomeDaRede } = useCatalogos()
+
+  const denuncia = (state as EstadoDaNavegacao)?.denuncia
 
   if (!denuncia) {
     return (
@@ -34,8 +43,8 @@ function DetalhesDaDenuncia() {
 
         <EmptyState>
           <Paragraph>
-            Não existe denúncia com o protocolo #{id}. Confira o número ou volte para a
-            lista.
+            Não foi possível abrir a denúncia #{id} por este endereço. Abra-a pela lista de
+            denúncias.
           </Paragraph>
           <BackLink to={paths.denuncias}>Ver todas as denúncias</BackLink>
         </EmptyState>
@@ -51,7 +60,7 @@ function DetalhesDaDenuncia() {
         <TitleGroup>
           <Title>{denuncia.titulo}</Title>
           <Subtitle>
-            Protocolo #{denuncia.id} · registrada em {denuncia.data}
+            Protocolo #{denuncia.id} · registrada em {formatarData(denuncia.criado_em)}
           </Subtitle>
         </TitleGroup>
         <StatusBadge status={denuncia.status} />
@@ -61,16 +70,18 @@ function DetalhesDaDenuncia() {
         <Facts>
           <div>
             <Term>Categoria</Term>
-            <Detail>{denuncia.categoria}</Detail>
+            <Detail>{nomeDaCategoria(denuncia.categoria_id)}</Detail>
           </div>
           <div>
             <Term>Plataforma</Term>
-            <Detail>{denuncia.rede}</Detail>
+            <Detail>{nomeDaRede(denuncia.rede_social_id)}</Detail>
           </div>
-          <div>
-            <Term>Denunciante</Term>
-            <Detail>{denuncia.autor}</Detail>
-          </div>
+          {denuncia.autor && (
+            <div>
+              <Term>Denunciante</Term>
+              <Detail>{denuncia.autor.nome}</Detail>
+            </div>
+          )}
         </Facts>
 
         <Section>
@@ -80,10 +91,16 @@ function DetalhesDaDenuncia() {
 
         <Section>
           <SectionTitle>Link do conteúdo</SectionTitle>
-          {/* noreferrer: o destino é um conteúdo denunciado, não deve receber a origem */}
-          <ContentLink href={denuncia.link} target="_blank" rel="noreferrer noopener">
-            {denuncia.link}
-          </ContentLink>
+          {/* O `z.url()` do backend aceita `javascript:` e afins. Só viram link de verdade os
+              endereços http/https; o resto aparece como texto, sem virar vetor de execução. */}
+          {linkSeguro(denuncia.link) ? (
+            // noreferrer: o destino é um conteúdo denunciado, não deve receber a origem
+            <ContentLink href={denuncia.link} target="_blank" rel="noreferrer noopener">
+              {denuncia.link}
+            </ContentLink>
+          ) : (
+            <Paragraph>{denuncia.link}</Paragraph>
+          )}
         </Section>
       </Card>
     </AppLayout>

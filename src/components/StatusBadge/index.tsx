@@ -1,19 +1,13 @@
+import { NOME_DO_STATUS } from '../../constants/denuncias'
 import type { StatusDenuncia } from '../../types/denuncia'
 import { Badge } from './styles'
-
-const labels: Record<StatusDenuncia, string> = {
-  recebida: 'Recebida',
-  emAnalise: 'Em análise',
-  resolvida: 'Resolvida',
-  arquivada: 'Arquivada',
-}
 
 type StatusBadgeProps = {
   status: StatusDenuncia
 }
 
 function StatusBadge({ status }: StatusBadgeProps) {
-  return <Badge $status={status}>{labels[status]}</Badge>
+  return <Badge $status={status}>{NOME_DO_STATUS[status]}</Badge>
 }
 
 export default StatusBadge

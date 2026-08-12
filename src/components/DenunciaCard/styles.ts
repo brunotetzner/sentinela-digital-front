@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 export const Card = styled(Link)`
   display: grid;
-  grid-template-columns: 116px minmax(0, 1fr) 150px;
+  /* A primeira coluna cabe só a data — largura era 116px quando o protocolo vinha junto */
+  grid-template-columns: 88px minmax(0, 1fr) 150px;
   align-items: center;
   gap: ${({ theme }) => theme.spacing(5)};
   padding: ${({ theme }) => theme.spacing(4)} ${({ theme }) => theme.spacing(5)};
@@ -26,23 +27,6 @@ export const Card = styled(Link)`
     grid-template-columns: 1fr;
     gap: ${({ theme }) => theme.spacing(3)};
   }
-`
-
-export const Meta = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing(0.5)};
-
-  @media (max-width: 768px) {
-    flex-direction: row;
-    gap: ${({ theme }) => theme.spacing(2)};
-  }
-`
-
-export const Protocol = styled.span`
-  font-size: ${({ theme }) => theme.fonts.sizes.sm};
-  font-weight: ${({ theme }) => theme.fonts.weights.bold};
-  color: ${({ theme }) => theme.colors.text};
 `
 
 export const DateLabel = styled.span`

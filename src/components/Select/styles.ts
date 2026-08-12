@@ -1,18 +1,20 @@
 import styled from 'styled-components'
-import { fieldBase } from '../../styles/field'
+import { fieldBase, fieldInvalido } from '../../styles/field'
 
 export const Control = styled.div`
   position: relative;
   width: 100%;
 `
 
-export const Field = styled.select`
+export const Field = styled.select<{ $invalido?: boolean }>`
   ${fieldBase}
   height: 48px;
   /* Espaço à direita para a seta desenhada por cima */
   padding: 0 ${({ theme }) => theme.spacing(10)} 0 ${({ theme }) => theme.spacing(3)};
   appearance: none;
   cursor: pointer;
+
+  ${({ $invalido }) => $invalido && fieldInvalido}
 `
 
 export const Chevron = styled.span`

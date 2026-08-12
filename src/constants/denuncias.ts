@@ -1,22 +1,21 @@
-/** Opções dos formulários de denúncia. Devem espelhar o que o backend aceita. */
-export const CATEGORIAS = [
-  'Golpes ou fraudes financeiras',
-  'Perfil falso',
-  'Conteúdo sexual envolvendo menores',
-  'Assédio e ameaças',
-  'Discurso de ódio',
-  'Desinformação sobre saúde',
-  'Outro',
-] as const
+import type { ItemDeCatalogo, StatusDenuncia } from '../types/denuncia'
 
-export const PLATAFORMAS = [
-  'Instagram',
-  'Facebook',
-  'WhatsApp',
-  'Telegram',
-  'TikTok',
-  'X',
-  'YouTube',
-  'Kwai',
-  'Outra',
-] as const
+/**
+ * Categorias e redes sociais **não** estão aqui: vêm de `/categorias` e `/redes-sociais`,
+ * porque o backend valida os ids contra um enum e uma cópia local sairia de sincronia.
+ *
+ * Os status ficam, porque não têm endpoint de catálogo — são parte do contrato e mudam junto
+ * com o código dos dois lados.
+ */
+
+/** Texto de tela para cada status, no feminino de "denúncia". */
+export const NOME_DO_STATUS: Record<StatusDenuncia, string> = {
+  ATIVO: 'Ativa',
+  ENCERRADO: 'Encerrada',
+  REMOVIDO: 'Removida',
+}
+
+/** Mesma lista no formato que o `Select` consome. */
+export const STATUS_DA_DENUNCIA: ItemDeCatalogo[] = (
+  Object.keys(NOME_DO_STATUS) as StatusDenuncia[]
+).map((id) => ({ id, nome: NOME_DO_STATUS[id] }))
