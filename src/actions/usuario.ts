@@ -25,3 +25,26 @@ export type UsuarioCriado = {
 export function cadastrarUsuario(dados: DadosCadastro): Promise<UsuarioCriado> {
   return request<UsuarioCriado>('/usuario', { method: 'POST', body: dados })
 }
+
+export type Credenciais = {
+  email: string
+  senha: string
+}
+
+/**
+ * O `token` é um **custom token**, não serve como `Bearer`. Trocar por um ID token antes de
+ * usar — veja `src/auth/identityToolkit.ts`.
+ */
+export type LoginAceito = {
+  token: string
+}
+
+/**
+ * `POST /usuario/login`.
+ *
+ * Lança `ApiError` com código `credenciais_invalidas` (401) tanto para conta inexistente
+ * quanto para senha errada — o backend não distingue, de propósito.
+ */
+export function entrar(credenciais: Credenciais): Promise<LoginAceito> {
+  return request<LoginAceito>('/usuario/login', { method: 'POST', body: credenciais })
+}

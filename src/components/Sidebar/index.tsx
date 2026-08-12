@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../auth/useAuth'
 import ShieldIcon from '../ShieldIcon'
 import { paths } from '../../routes/paths'
 import { CloseIcon, MenuIcon } from './icons'
 import {
+  AccountEmail,
   Brand,
   BrandName,
   CloseButton,
@@ -21,9 +24,17 @@ const DRAWER_ID = 'menu-lateral'
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
+  const { sessao, sair } = useAuth()
 
   function close() {
     setIsOpen(false)
+  }
+
+  function handleSair() {
+    close()
+    sair()
+    navigate(paths.login, { replace: true })
   }
 
   useEffect(() => {
@@ -80,9 +91,12 @@ function Sidebar() {
           </li>
         </Links>
 
-        <SignOut to={paths.login} onClick={close}>
-          Sair
-        </SignOut>
+        <div>
+          {sessao?.email && <AccountEmail>{sessao.email}</AccountEmail>}
+          <SignOut type="button" onClick={handleSair}>
+            Sair
+          </SignOut>
+        </div>
       </Drawer>
     </>
   )

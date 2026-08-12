@@ -7,6 +7,8 @@ type Opcoes = {
   method?: 'GET' | 'POST' | 'PUT'
   /** Serializado como JSON. Ausente em GET. */
   body?: unknown
+  /** ID token do Firebase. Vai como `Bearer`. Obtenha sempre via `useAuth().obterIdToken()`. */
+  token?: string
 }
 
 /** Formato do 422 do backend: um item por campo que falhou, com o caminho até ele. */
@@ -44,13 +46,21 @@ function extrairErrosPorCampo(corpo: unknown): Record<string, string> {
  * O corpo é lido como texto antes de virar JSON porque nem toda resposta é JSON — o 401 do
  * backend é o texto puro `Unauthorized`, e um `.json()` cego estouraria ali.
  */
-export async function request<T>(path: string, { method = 'GET', body }: Opcoes = {}): Promise<T> {
+export async function request<T>(
+  path: string,
+  { method = 'GET', body, token }: Opcoes = {},
+): Promise<T> {
+  const headers: Record<string, string> = {}
+
+  if (body !== undefined) headers['Content-Type'] = 'application/json'
+  if (token) headers.Authorization = `Bearer ${token}`
+
   let resposta: Response
 
   try {
     resposta = await fetch(`${BASE_URL}${path}`, {
       method,
-      headers: body === undefined ? undefined : { 'Content-Type': 'application/json' },
+      headers,
       body: body === undefined ? undefined : JSON.stringify(body),
     })
   } catch {

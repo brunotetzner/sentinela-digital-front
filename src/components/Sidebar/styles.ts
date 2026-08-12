@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 /** Abaixo disso o menu vira gaveta: tablet em retrato já fica apertado com 240px fixos */
 export const DRAWER_BREAKPOINT = '1024px'
@@ -132,8 +132,10 @@ export const Links = styled.ul`
   flex: 1;
 `
 
-export const NavItem = styled(NavLink)`
+/** Aparência compartilhada pelos itens do menu, sejam links ou ações */
+const navItemBase = css`
   display: block;
+  width: 100%;
   padding: ${({ theme }) => theme.spacing(3)} ${({ theme }) => theme.spacing(3)};
   border-radius: ${({ theme }) => theme.radii.sm};
   font-size: ${({ theme }) => theme.fonts.sizes.sm};
@@ -144,17 +146,40 @@ export const NavItem = styled(NavLink)`
     background: ${({ theme }) => theme.colors.primaryHover};
   }
 
-  &.active {
-    background: ${({ theme }) => theme.colors.primaryHover};
-    color: ${({ theme }) => theme.colors.accentSoft};
-  }
-
   &:focus-visible {
     outline: 3px solid ${({ theme }) => theme.colors.accentSoft};
     outline-offset: 2px;
   }
 `
 
-export const SignOut = styled(NavItem)`
+export const NavItem = styled(NavLink)`
+  ${navItemBase}
+
+  &.active {
+    background: ${({ theme }) => theme.colors.primaryHover};
+    color: ${({ theme }) => theme.colors.accentSoft};
+  }
+`
+
+/**
+ * Sair encerra a sessão, então é um botão e não um link: um link só mudaria de endereço,
+ * deixando o token guardado e a pessoa ainda autenticada.
+ */
+export const SignOut = styled.button`
+  ${navItemBase}
+  background: none;
+  border: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
   color: ${({ theme }) => theme.colors.accentSoft};
+`
+
+/** E-mail de quem está logado, acima do Sair */
+export const AccountEmail = styled.p`
+  padding: 0 ${({ theme }) => theme.spacing(3)};
+  margin-bottom: ${({ theme }) => theme.spacing(2)};
+  font-size: ${({ theme }) => theme.fonts.sizes.xs};
+  color: ${({ theme }) => theme.colors.accentSoft};
+  overflow-wrap: anywhere;
 `
